@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: ustaz
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SEED_ADMIN_EMAIL
+        value: admin@ustaz.kg
+      - key: SEED_ADMIN_PASSWORD
+        value: Admin1234!
