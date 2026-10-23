@@ -49,8 +49,8 @@ export function PointsPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Баллы и журнал"
-        description="Прозрачная история начислений и списаний. Баланс считается на сервере из журнала операций."
+        title="Баллы и финансы"
+        description="Баллы репутации и реальные деньги — разные системы. Здесь показан только журнал баллов."
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -105,10 +105,40 @@ export function PointsPage() {
 
       <EarnPointsCard />
 
+      <Card>
+        <CardHeader
+          title="Разделяем репутацию и деньги"
+          subtitle="Текущая демо-экономика и будущая финансовая модель"
+          icon={<Info className="h-4 w-4" />}
+        />
+        <div className="grid gap-4 p-5 md:grid-cols-2">
+          <div className="rounded-xl bg-indigo-50 p-4">
+            <p className="text-sm font-semibold text-indigo-950">USTAZ Points · работает в MVP</p>
+            <ul className="mt-2 space-y-1.5 text-sm text-indigo-900/80">
+              <li>Начисляются за проведённые сессии, миссии и приглашения.</li>
+              <li>Баланс берётся из серверного журнала операций.</li>
+              <li>Не имеют денежного курса, не выводятся и не оплачивают курсы.</li>
+            </ul>
+          </div>
+          <div className="rounded-xl bg-slate-50 p-4">
+            <p className="text-sm font-semibold text-slate-900">Деньги · пока не подключены</p>
+            <ul className="mt-2 space-y-1.5 text-sm text-slate-600">
+              <li>Оплата курсов и перечисление дохода наставнику не проводятся.</li>
+              <li>Комиссии платформы, возвраты и налоги не определены.</li>
+              <li>Цены в карточках — примеры, не оферта и не запрос платежа.</li>
+            </ul>
+          </div>
+        </div>
+        <p className="px-5 pb-5 text-xs text-slate-500">
+          До реальных платежей понадобятся платёжный провайдер, правила комиссий и возвратов,
+          проверка личности/налоговых требований и отдельный финансовый учёт.
+        </p>
+      </Card>
+
       <div className="flex items-start gap-2 rounded-xl bg-slate-50 px-4 py-3 text-xs text-slate-500">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
-        USTAZ Points — внутренние баллы репутации, не деньги и не криптовалюта. Вывод средств не
-        предусмотрен.
+        Баллы — показатель вклада в сообщество. Отзывы и рейтинг наставника учитываются отдельно;
+        баллы нельзя трактовать как зарплату или обещание дохода.
       </div>
 
       <Card>

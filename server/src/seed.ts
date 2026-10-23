@@ -134,7 +134,7 @@ const profiles: NewProfile[] = [
     city: 'Бишкек',
     headline: 'Frontend-разработчик, React / TypeScript',
     bio: '3 года работаю frontend-разработчиком. Помогаю новичкам пройти путь от HTML до первого React-проекта: без воды, на практических задачах и с разбором кода.',
-    skills: ['programming', 'career'],
+    skills: ['programming', 'web-development', 'mobile-development', 'qa-testing', 'career'],
     interests: ['programming', 'design'],
     topics: [
       'Разбор первого React-проекта',
@@ -172,7 +172,7 @@ const profiles: NewProfile[] = [
     city: 'Ош',
     headline: 'Преподаватель английского языка',
     bio: '7 лет преподаю английский подросткам и студентам. Готовлю к собеседованиям, помогаю преодолеть языковой барьер и разобрать грамматику простыми словами.',
-    skills: ['english', 'career'],
+    skills: ['english', 'teaching', 'career'],
     interests: ['english'],
     topics: [
       'Преодоление языкового барьера',
@@ -191,7 +191,7 @@ const profiles: NewProfile[] = [
     city: 'Бишкек',
     headline: 'Основатель EdTech-стартапа',
     bio: 'Запускал два образовательных проекта. Помогу проверить идею, собрать MVP и подготовить короткий питч для инвесторов или конкурса.',
-    skills: ['business', 'career'],
+    skills: ['business', 'career', 'product-management', 'finance'],
     interests: ['business'],
     topics: [
       'Проверка идеи стартапа',
@@ -210,7 +210,7 @@ const profiles: NewProfile[] = [
     city: 'Каракол',
     headline: 'Backend-разработчик, Node.js / PostgreSQL',
     bio: 'Работаю с высоконагруженными API. Помогаю разобраться с базами данных, архитектурой сервисов и подготовкой к техническим собеседованиям.',
-    skills: ['programming', 'math'],
+    skills: ['programming', 'math', 'data-analytics', 'cybersecurity'],
     interests: ['programming', 'math'],
     topics: [
       'Подготовка к техническому интервью',
@@ -753,13 +753,13 @@ tx(() => {
   );
 });
 
-/** Бонусы партнёров (демо) */
+/** Условные бонусы для демонстрации, без реальных партнёров */
 const rewards = [
   {
-    partner: 'Demo Coffee',
-    title: 'Скидка 20% на кофе',
-    description: 'Скидка на любой напиток в демонстрационной кофейне.',
-    conditions: 'Покажите код бариста. Один купон — одно посещение.',
+    partner: 'USTAZ Demo Studio',
+    title: 'Разбор учебного проекта',
+    description: 'Демонстрационный разбор проекта с наставником сообщества.',
+    conditions: 'Пример бонуса; реальная запись и предоставление услуги не подключены.',
     cost: 150,
     qty: 25,
   },

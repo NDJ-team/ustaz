@@ -40,11 +40,11 @@ interface RewardsResponse {
 }
 
 type Tab = 'catalog' | 'mine';
-type Filter = 'all' | 'hot' | 'cheap';
+type Filter = 'all' | 'available' | 'cheap';
 
 const FILTERS: Array<{ id: Filter; label: string }> = [
-  { id: 'all', label: 'Все' },
-  { id: 'hot', label: 'Акции' },
+  { id: 'all', label: 'Все примеры' },
+  { id: 'available', label: 'Доступны' },
   { id: 'cheap', label: 'До 300 баллов' },
 ];
 
@@ -92,11 +92,9 @@ export function RewardsPage() {
   const list = rewards.data?.rewards ?? [];
   const filteredRewards = useMemo(() => {
     if (filter === 'cheap') return list.filter((r) => r.points_cost <= 300);
-    if (filter === 'hot') return list.filter((r) => r.points_cost <= 250 || r.available_quantity <= 10);
+    if (filter === 'available') return list.filter((r) => r.available_quantity > 0);
     return list;
   }, [list, filter]);
-
-  const hotCount = list.filter((r) => r.points_cost <= 250 || r.available_quantity <= 10).length;
 
   const [refCopied, setRefCopied] = useState(false);
   const referralCode = me?.referral.code ?? 'USTAZ';
@@ -117,8 +115,8 @@ export function RewardsPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Бонусы"
-        description="Обменивайте баллы на реальные скидки и привилегии. Больше активностей — больше выгодных обменов."
+        title="Демо-бонусы"
+        description="Дополнительная демонстрация использования баллов. Бонусы не заменяют отзывы, репутацию и развитие навыков."
       />
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -137,11 +135,11 @@ export function RewardsPage() {
             <div className="flex flex-wrap items-center gap-2">
               <Badge className="bg-amber-50 text-amber-700 ring-amber-200">
                 <Sparkles className="h-3.5 w-3.5" />
-                Витрина выгод
+                Дополнительная мотивация
               </Badge>
               <Badge className="bg-white/80 text-slate-600 ring-slate-200">
                 <Gift className="h-3.5 w-3.5" />
-                {list.length} акционных предложений
+                {list.length} демо-предложений
               </Badge>
             </div>
           </div>
@@ -224,9 +222,9 @@ export function RewardsPage() {
           <Card className="p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold text-slate-900">Витрина акций</p>
+                <p className="text-sm font-semibold text-slate-900">Демо-витрина баллов</p>
                 <p className="text-xs text-slate-500">
-                  Выберите выгодное предложение под вашу копилку баллов
+                  Выберите пример бонуса для демонстрации
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -234,8 +232,8 @@ export function RewardsPage() {
                   const count =
                     item.id === 'all'
                       ? list.length
-                      : item.id === 'hot'
-                        ? hotCount
+                      : item.id === 'available'
+                        ? list.filter((r) => r.available_quantity > 0).length
                         : list.filter((r) => r.points_cost <= 300).length;
                   const active = filter === item.id;
                   return (
@@ -291,7 +289,7 @@ export function RewardsPage() {
               description="Попробуйте другой фильтр или загляните чуть позже."
               action={
                 <Button variant="outline" size="sm" onClick={() => setFilter('all')}>
-                  Показать все акции
+                  Показать все примеры
                 </Button>
               }
             />
@@ -301,41 +299,17 @@ export function RewardsPage() {
               {filteredRewards.map((reward) => {
                 const affordable = balance >= reward.points_cost;
                 const available = reward.available_quantity > 0;
-                const hot = reward.points_cost <= 250 || reward.available_quantity <= 10;
-                const discountBadge =
-                  reward.points_cost <= 150
-                    ? 'Выгодно'
-                    : reward.points_cost <= 250
-                      ? 'Акция'
-                      : 'Бонус';
                 return (
                   <Card
                     key={reward.id}
-                    className={`relative flex flex-col overflow-hidden p-5 transition-shadow hover:shadow-md ${
-                      hot ? 'ring-1 ring-amber-200' : ''
-                    }`}
+                    className="relative flex flex-col overflow-hidden p-5 transition-shadow hover:shadow-md"
                   >
-                    {hot && (
-                      <div className="absolute right-0 top-0 rounded-bl-2xl bg-gradient-to-r from-amber-500 to-orange-500 px-2.5 py-1 text-xs font-medium text-white">
-                        <span className="inline-flex items-center gap-1">
-                          <Sparkles className="h-3 w-3" />
-                          Акция
-                        </span>
-                      </div>
-                    )}
                     <div className="flex items-start justify-between gap-3">
-                      <span
-                        className={`flex h-11 w-11 items-center justify-center rounded-xl ${
-                          hot ? 'bg-amber-50 text-amber-600' : 'bg-teal-50 text-teal-600'
-                        }`}
-                      >
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
                         <Gift className="h-5 w-5" />
                       </span>
                       <div className="flex items-center gap-1.5">
-                        <Badge className="bg-slate-100 text-slate-600 ring-slate-200">
-                          {discountBadge}
-                        </Badge>
-                        {reward.is_demo && <DemoBadge />}
+                        <DemoBadge />
                       </div>
                     </div>
                     <p className="mt-3 text-xs font-medium uppercase tracking-wide text-slate-400">
@@ -350,13 +324,7 @@ export function RewardsPage() {
                     <div className="mt-auto pt-4">
                       <div className="mb-3 flex items-center justify-between text-xs text-slate-500">
                         <span>Осталось</span>
-                        <span
-                          className={
-                            reward.available_quantity <= 10
-                              ? 'font-medium text-rose-600'
-                              : 'text-slate-600'
-                          }
-                        >
+                        <span className="text-slate-600">
                           {reward.available_quantity} шт.
                         </span>
                       </div>
@@ -374,12 +342,11 @@ export function RewardsPage() {
                             setSelected(reward);
                             setError(null);
                           }}
-                          className={affordable && available ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600' : ''}
                         >
                           {!available
                             ? 'Закончился'
                             : affordable
-                              ? 'Обменять со скидкой'
+                              ? 'Обменять баллы'
                               : `Нужно ${reward.points_cost - balance}`}
                         </Button>
                       </div>

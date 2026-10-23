@@ -4,9 +4,12 @@ import {
   Award,
   Bell,
   BookOpenCheck,
+  Briefcase,
+  Bot,
   CalendarDays,
   Coins,
   Gift,
+  GraduationCap,
   LayoutDashboard,
   LogOut,
   MoreHorizontal,
@@ -31,18 +34,38 @@ interface NavItem {
   roles?: Array<'learner' | 'mentor' | 'admin'>;
 }
 
-const NAV: NavItem[] = [
-  { to: '/app', label: 'Обзор', icon: LayoutDashboard },
-  { to: '/app/notifications', label: 'Уведомления', icon: Bell },
-  { to: '/app/mentors', label: 'Наставники', icon: Users },
-  { to: '/app/bookings', label: 'Мои сессии', icon: CalendarDays },
-  { to: '/app/missions', label: 'Миссии', icon: Target },
-  { to: '/app/points', label: 'Баллы', icon: Coins },
-  { to: '/app/rewards', label: 'Бонусы', icon: Gift },
-  { to: '/app/achievements', label: 'Достижения', icon: Award },
-  { to: '/app/profile', label: 'Профиль', icon: UserRound },
-  { to: '/app/schedule', label: 'Расписание', icon: BookOpenCheck, roles: ['mentor'] },
-  { to: '/app/admin', label: 'Админка', icon: Sparkles, roles: ['admin'] },
+const NAV_GROUPS: Array<{ label: string; items: NavItem[] }> = [
+  {
+    label: 'Мой путь',
+    items: [
+      { to: '/app', label: 'Обзор', icon: LayoutDashboard },
+      { to: '/app/free-courses', label: 'Бесплатные курсы', icon: GraduationCap },
+      { to: '/app/paid-lessons', label: 'Платные курсы', icon: BookOpenCheck },
+      { to: '/app/mentors', label: 'Наставники', icon: Users },
+      { to: '/app/skills', label: 'Мои навыки', icon: Award },
+      { to: '/app/career', label: 'Карьера', icon: Briefcase },
+      { to: '/app/advisor', label: 'Помощник (демо)', icon: Bot },
+    ],
+  },
+  {
+    label: 'Сообщество',
+    items: [
+      { to: '/app/bookings', label: 'Мои сессии', icon: CalendarDays },
+      { to: '/app/schedule', label: 'Расписание', icon: BookOpenCheck, roles: ['mentor'] },
+      { to: '/app/missions', label: 'Миссии', icon: Target },
+      { to: '/app/achievements', label: 'Достижения', icon: Award },
+    ],
+  },
+  {
+    label: 'Аккаунт',
+    items: [
+      { to: '/app/points', label: 'Баллы и финансы', icon: Coins },
+      { to: '/app/rewards', label: 'Демо-бонусы', icon: Gift },
+      { to: '/app/notifications', label: 'Уведомления', icon: Bell },
+      { to: '/app/profile', label: 'Профиль', icon: UserRound },
+      { to: '/app/admin', label: 'Админка', icon: Sparkles, roles: ['admin'] },
+    ],
+  },
 ];
 
 export function AppShell() {
@@ -94,9 +117,12 @@ export function AppShell() {
     };
   }, []);
 
-  const items = NAV.filter(
-    (item) => !item.roles || (me && item.roles.includes(me.profile.role))
-  );
+  const groups = NAV_GROUPS.map((group) => ({
+    ...group,
+    items: group.items.filter(
+      (item) => !item.roles || (me && item.roles.includes(me.profile.role))
+    ),
+  })).filter((group) => group.items.length > 0);
 
   const primaryItems: NavItem[] = me
     ? [
@@ -104,8 +130,8 @@ export function AppShell() {
         me.profile.role === 'mentor'
           ? { to: '/app/schedule', label: 'Расписание', icon: BookOpenCheck }
           : { to: '/app/mentors', label: 'Наставники', icon: Users },
+        { to: '/app/free-courses', label: 'Бесплатные', icon: GraduationCap },
         { to: '/app/bookings', label: 'Сессии', icon: CalendarDays },
-        { to: '/app/rewards', label: 'Бонусы', icon: Gift },
       ]
     : [];
 
@@ -122,32 +148,41 @@ export function AppShell() {
       <div className="px-4 pb-4 pt-5">
         <Logo />
       </div>
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3">
-        {items.map((item) => {
-          const Icon = item.icon;
-          return (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/app'}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                }`
-              }
-            >
-              <Icon className="h-5 w-5 shrink-0" />
-              {item.label}
-              {item.to === '/app/notifications' && unread > 0 && (
-                <span className="ml-auto rounded-full bg-indigo-600 px-2 py-0.5 text-[11px] font-semibold text-white">
-                  {unread > 99 ? '99+' : unread}
-                </span>
-              )}
-            </NavLink>
-          );
-        })}
+      <nav className="flex-1 space-y-5 overflow-y-auto px-3">
+        {groups.map((group) => (
+          <section key={group.label} aria-label={group.label}>
+            <h2 className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+              {group.label}
+            </h2>
+            <div className="space-y-1">
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.to === '/app'}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
+                        isActive
+                          ? 'bg-indigo-50 text-indigo-700'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                      }`
+                    }
+                  >
+                    <Icon className="h-5 w-5 shrink-0" />
+                    {item.label}
+                    {item.to === '/app/notifications' && unread > 0 && (
+                      <span className="ml-auto rounded-full bg-indigo-600 px-2 py-0.5 text-[11px] font-semibold text-white">
+                        {unread > 99 ? '99+' : unread}
+                      </span>
+                    )}
+                  </NavLink>
+                );
+              })}
+            </div>
+          </section>
+        ))}
       </nav>
       {me && (
         <div className="border-t border-slate-100 p-3">

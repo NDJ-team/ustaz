@@ -18,6 +18,11 @@ import { SchedulePage } from '@/pages/SchedulePage';
 import { NotificationsPage } from '@/pages/NotificationsPage';
 import { AdminPage } from '@/pages/AdminPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { FreeCoursesPage, PaidLessonsPage } from '@/pages/CoursesPage';
+import { CareerPage } from '@/pages/CareerPage';
+import { SkillsPage } from '@/pages/SkillsPage';
+import { CourseDetailPage } from '@/pages/CourseDetailPage';
+import { AdvisorPage } from '@/pages/AdvisorPage';
 
 export function App() {
   return (
@@ -51,6 +56,12 @@ export function App() {
         <Route index element={<OverviewPage />} />
         <Route path="mentors" element={<MentorsPage />} />
         <Route path="mentors/:id" element={<MentorDetailPage />} />
+        <Route path="free-courses" element={<FreeCoursesPage />} />
+        <Route path="free-courses/:courseId" element={<CourseDetailPage />} />
+        <Route path="paid-lessons" element={<PaidLessonsPage />} />
+        {/* Keep older course links working while directing new links to the free catalog. */}
+        <Route path="paid-lessons/:courseId" element={<CourseDetailPage />} />
+        <Route path="advisor" element={<AdvisorPage />} />
         <Route path="bookings" element={<BookingsPage />} />
         <Route path="bookings/:id" element={<BookingDetailPage />} />
         <Route path="notifications" element={<NotificationsPage />} />
@@ -58,6 +69,8 @@ export function App() {
         <Route path="missions" element={<MissionsPage />} />
         <Route path="rewards" element={<RewardsPage />} />
         <Route path="achievements" element={<AchievementsPage />} />
+        <Route path="skills" element={<SkillsPage />} />
+        <Route path="career" element={<CareerPage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route
           path="schedule"

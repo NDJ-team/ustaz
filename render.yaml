@@ -13,4 +13,4 @@ services:
       - key: SEED_ADMIN_EMAIL
         value: admin@ustaz.kg
       - key: SEED_ADMIN_PASSWORD
-        value: Admin1234!
+        generateValue: true

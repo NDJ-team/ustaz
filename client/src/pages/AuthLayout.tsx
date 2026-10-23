@@ -42,7 +42,7 @@ export function AuthLayout({
               <p className="text-white/80">минут на сессию</p>
             </div>
             <div>
-              <p className="text-3xl font-bold">6</p>
+              <p className="text-3xl font-bold">30</p>
               <p className="text-white/80">направлений обучения</p>
             </div>
             <div>
@@ -50,7 +50,7 @@ export function AuthLayout({
               <p className="text-white/80">баллов наставнику</p>
             </div>
             <div>
-              <p className="text-3xl font-bold">0 ₸</p>
+              <p className="text-3xl font-bold">0 сом</p>
               <p className="text-white/80">стоимость участия</p>
             </div>
           </div>

@@ -320,12 +320,14 @@ export function Modal({
   open,
   onClose,
   title,
+  description,
   children,
   footer,
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
+  description?: ReactNode;
   children: ReactNode;
   footer?: ReactNode;
 }) {
@@ -356,7 +358,10 @@ export function Modal({
         onClick={(event) => event.stopPropagation()}
       >
         <div className="mb-4 flex items-start justify-between gap-4">
-          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+            {description && <p className="mt-1 text-sm text-slate-500">{description}</p>}
+          </div>
           <button
             type="button"
             onClick={onClose}

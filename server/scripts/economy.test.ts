@@ -1,6 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { LEVELS, POINTS, levelFor } from '../src/config';
+import { CATEGORIES, LEVELS, POINTS, levelFor } from '../src/config';
+
+test('каталог направлений содержит уникальные идентификаторы и русские названия', () => {
+  const ids = CATEGORIES.map((category) => category.id);
+  assert.equal(new Set(ids).size, ids.length);
+  assert.ok(CATEGORIES.length >= 30);
+  for (const category of CATEGORIES) {
+    assert.ok(category.id.length > 0);
+    assert.ok(category.label.length > 0);
+  }
+});
 
 test('уровни начинаются с нуля и пороги строго возрастают', () => {
   assert.equal(LEVELS[0].minPoints, 0);

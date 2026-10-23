@@ -71,14 +71,14 @@ export function OverviewPage() {
     ? [
         { to: '/app/schedule', label: 'Расписание', icon: BookOpenCheck, tone: 'indigo' },
         { to: '/app/bookings', label: 'Мои сессии', icon: CalendarDays, tone: 'slate' },
-        { to: '/app/missions', label: 'Миссии', icon: Target, tone: 'slate' },
-        { to: '/app/rewards', label: 'Бонусы', icon: Gift, tone: 'slate' },
+        { to: '/app/paid-lessons', label: 'Платное обучение', icon: BookOpenCheck, tone: 'slate' },
+        { to: '/app/achievements', label: 'Достижения', icon: Award, tone: 'slate' },
       ]
     : [
         { to: '/app/mentors', label: 'Найти наставника', icon: Users, tone: 'indigo' },
         { to: '/app/bookings', label: 'Мои сессии', icon: CalendarDays, tone: 'slate' },
         { to: '/app/missions', label: 'Миссии', icon: Target, tone: 'slate' },
-        { to: '/app/achievements', label: 'Достижения', icon: Award, tone: 'slate' },
+        { to: '/app/free-courses', label: 'Бесплатные курсы', icon: BookOpenCheck, tone: 'slate' },
       ];
 
   return (
@@ -181,6 +181,27 @@ export function OverviewPage() {
               </Link>
             );
           })}
+        </div>
+      </Card>
+
+      <Card className="overflow-hidden border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-teal-50 p-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-slate-900">
+              {isMentor ? 'Репутация открывает новые возможности' : 'Ваш путь от базы до карьеры'}
+            </p>
+            <p className="mt-1 max-w-2xl text-sm text-slate-600">
+              {isMentor
+                ? 'Проводите бесплатные сессии, собирайте отзывы и растите в каталоге. В демо-модели высокий рейтинг помогает перейти к платным занятиям.'
+                : 'Освойте бесплатные основы, подтвердите навыки мини-заданиями и изучите демо-предложения обучения и стажировок.'}
+            </p>
+          </div>
+          <Link to={isMentor ? '/app/paid-lessons' : '/app/skills'}>
+            <Button variant="outline">
+              {isMentor ? 'Путь наставника' : 'Мои навыки'}
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </Card>
 
@@ -425,7 +446,7 @@ export function OverviewPage() {
               Ваш баланс: {balance} {pluralize(balance, 'балл', 'балла', 'баллов')}
             </p>
             <Link to="/app/rewards">
-              <Button size="sm" className="mt-4 bg-white text-indigo-700 hover:bg-white/90">
+              <Button size="sm" variant="outline" className="mt-4">
                 Открыть бонусы
                 <ArrowRight className="h-4 w-4" />
               </Button>

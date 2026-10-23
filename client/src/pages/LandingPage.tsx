@@ -3,6 +3,7 @@ import {
   ArrowRight,
   CalendarCheck,
   Coins,
+  Briefcase,
   Gift,
   GraduationCap,
   Leaf,
@@ -17,24 +18,24 @@ import { Logo } from '@/components/Logo';
 
 const STEPS = [
   {
+    icon: GraduationCap,
+    title: 'Освойте бесплатную базу',
+    text: 'Начните с коротких вводных курсов по IT, английскому, дизайну и другим востребованным направлениям.',
+  },
+  {
+    icon: Target,
+    title: 'Подтвердите навыки',
+    text: 'Выполняйте мини-задания и получайте проверяемые результаты, которые помогают показать свой уровень.',
+  },
+  {
     icon: Users,
-    title: 'Найдите наставника',
-    text: 'Каталог проверенных студентов и специалистов по направлениям: программирование, дизайн, английский, бизнес и карьера.',
+    title: 'Учитесь вместе',
+    text: 'Находите наставников, проводите бесплатные сессии и собирайте отзывы. Наставники растят репутацию и доверие учеников.',
   },
   {
-    icon: CalendarCheck,
-    title: 'Забронируйте время',
-    text: 'Откройте свободные слоты, выберите удобное время и опишите тему. Наставник подтверждает заявку — обе стороны видят сессию.',
-  },
-  {
-    icon: Coins,
-    title: 'Проведите сессию',
-    text: 'После подтверждённого обеими сторонами занятия наставник получает баллы USTAZ за реально проведённую консультацию.',
-  },
-  {
-    icon: Gift,
-    title: 'Обменяйте баллы',
-    text: 'Баллы — внутренняя репутация. Их можно обменять на бонусы партнёров и отследить каждое начисление в открытом журнале.',
+    icon: Briefcase,
+    title: 'Откройте новые возможности',
+    text: 'Переходите к углублённому обучению, стажировкам и работе. Компании на сайте сейчас представлены только в демо-режиме.',
   },
 ];
 
@@ -51,8 +52,13 @@ const FEATURES = [
   },
   {
     icon: Leaf,
-    title: 'Растёт сообщество',
-    text: 'Помогая младшим, вы формируете репутацию и уровень: от Новичка до Эксперта сообщества.',
+    title: 'Мотивация наставников',
+    text: 'Отзывы, подтверждённые сессии и репутация помогают наставнику выделиться и со временем перейти к платному обучению.',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Понятный путь ученика',
+    text: 'Бесплатная база и мини-задания помогают освоить основы до покупки углублённого курса или отклика на стажировку.',
   },
 ];
 
@@ -73,8 +79,8 @@ export function LandingPage() {
             <a href="#economy" className="transition-colors hover:text-slate-900">
               Баллы
             </a>
-            <a href="#missions" className="transition-colors hover:text-slate-900">
-              Миссии
+            <a href="#opportunities" className="transition-colors hover:text-slate-900">
+              Возможности
             </a>
           </nav>
           <div className="flex items-center gap-2">
@@ -114,9 +120,8 @@ export function LandingPage() {
                 </span>
               </h1>
               <p className="mt-5 max-w-xl text-lg text-slate-600">
-                USTAZ связывает молодёжь Кыргызстана с наставниками: студентами и специалистами,
-                готовыми помочь бесплатно. Проводите сессии, выполняйте миссии и получайте баллы
-                репутации.
+                USTAZ помогает молодёжи Кыргызстана пройти путь от бесплатной базы и наставника
+                до подтверждённых навыков, углублённого обучения и первых карьерных возможностей.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <LinkButton to={startPath} size="lg">
@@ -172,11 +177,11 @@ export function LandingPage() {
                 </div>
                 <div className="mt-6 rounded-xl bg-slate-50 p-4">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-600">Награда наставнику</span>
-                    <span className="font-semibold text-teal-600">+100 баллов</span>
+                    <span className="text-slate-600">Что получает наставник</span>
+                    <span className="font-semibold text-teal-600">Отзывы и репутацию</span>
                   </div>
                   <p className="mt-2 text-xs text-slate-500">
-                    Начисляется после того, как обе стороны подтвердят проведение сессии.
+                    Подтверждённые занятия помогают собрать рейтинг и привлечь учеников.
                   </p>
                 </div>
               </Card>
@@ -189,7 +194,7 @@ export function LandingPage() {
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900">Как это работает</h2>
             <p className="mt-3 text-slate-600">
-              Четыре простых шага: от знакомства с наставником до бонуса за помощь другим.
+              От первых знаний до профессиональных возможностей — с практикой и поддержкой наставников.
             </p>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -223,7 +228,8 @@ export function LandingPage() {
                 </h2>
                 <p className="mt-4 text-slate-600">
                   USTAZ Points отражают вклад человека в сообщество. Их нельзя купить или вывести —
-                  только заработать реальными действиями и потратить на бонусы партнёров.
+                  только заработать реальными действиями. Главная ценность — репутация, подтверждённые навыки
+                  и доступ к следующему этапу обучения.
                 </p>
                 <ul className="mt-6 space-y-3">
                   {[
@@ -281,14 +287,14 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* Missions + features */}
-        <section id="missions" className="mx-auto max-w-6xl px-4 py-16 lg:px-8">
+        {/* Opportunities + features */}
+        <section id="opportunities" className="mx-auto max-w-6xl px-4 py-16 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-              Миссии и обмен баллов
+              Обучение, репутация и карьера
             </h2>
             <p className="mt-3 text-slate-600">
-              Практика с понятным результатом и реальные бонусы от партнёров платформы.
+              Баллы остаются частью мотивации, но основной результат — навыки, отзывы и следующий шаг.
             </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -306,6 +312,21 @@ export function LandingPage() {
             })}
           </div>
 
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <LinkButton to={me ? '/app/free-courses' : '/register'} variant="outline">
+              Бесплатные курсы
+              <ArrowRight className="h-4 w-4" />
+            </LinkButton>
+            <LinkButton to={me ? '/app/paid-lessons' : '/register'} variant="outline">
+              Платные курсы
+              <ArrowRight className="h-4 w-4" />
+            </LinkButton>
+            <LinkButton to={me ? '/app/career' : '/register'}>
+              Карьерные возможности
+              <ArrowRight className="h-4 w-4" />
+            </LinkButton>
+          </div>
+
           <Card className="mt-8 flex flex-col items-center gap-4 bg-gradient-to-br from-indigo-600 to-teal-500 p-8 text-center text-white md:flex-row md:justify-between md:text-left">
             <div>
               <h3 className="text-xl font-semibold">Готовы начать?</h3>
@@ -316,7 +337,7 @@ export function LandingPage() {
             <LinkButton
               to={startPath}
               size="lg"
-              className="bg-white text-indigo-700 hover:bg-white/90"
+              variant="outline"
             >
               {me ? 'В приложение' : 'Присоединиться'}
               <ArrowRight className="h-4 w-4" />
