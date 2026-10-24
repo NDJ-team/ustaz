@@ -44,7 +44,7 @@ const NAV_GROUPS: Array<{ label: string; items: NavItem[] }> = [
       { to: '/app/mentors', label: 'Наставники', icon: Users },
       { to: '/app/skills', label: 'Мои навыки', icon: Award },
       { to: '/app/career', label: 'Карьера', icon: Briefcase },
-      { to: '/app/advisor', label: 'Помощник (демо)', icon: Bot },
+      { to: '/app/advisor', label: 'Ustaz AI Demo', icon: Bot },
     ],
   },
   {
